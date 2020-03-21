@@ -49,7 +49,7 @@ I) Spawn Laelaps II in Gazebo and choose one of the following training tasks dep
 
 II) Launch pre-trained saved model.
 
-1) Choose a saved model from the runs folder in the training_system package, where you can find your training results. Inside the training_results folder, the saved models are in the Model_best_test_rewards folder.
+1) Choose a saved model from the runs folder in the training_system package. There you can find the training results. In the training_results folder, the saved models can be found in the model_best_test_rewards folder.
 
 2) Run the test node.
 
