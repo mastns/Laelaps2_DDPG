@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!-- 
+This file includes the main robot description of the new developed laelaps robot by CSL NTUA Athens
+-->
+<robot name="laelaps" 
+    xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- Constants for robot dimensions -->
+    <xacro:property name="initial_height" value="0.5" />
+    <xacro:property name="body_stl" value="package://laelaps_description/meshes/body.STL"/>
+    <xacro:property name="body_dae" value="package://laelaps_description/meshes/body_grey_m.dae"/>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- base dimensions -->
+    <xacro:property name="base_mass" value="40"/>
+    <xacro:property name="base_length" value="0.6"/>
+    <xacro:property name="base_width" value="0.4"/>
+    <xacro:property name="base_depth" value="0.1"/>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xacro:property name="hip_to_hip" value="${base_length}"/>
+    <xacro:property name="com_pos" value="-0.01"/>
+    <xacro:property name="com_pos_visual" value="-0.01"/>
+    <xacro:property name="base_IXX" value="0.87"/>
+    <xacro:property name="base_IXY" value="0.0"/>
+    <xacro:property name="base_IXZ" value="0.0"/>
+    <xacro:property name="base_IYY" value="1.23"/>
+    <xacro:property name="base_IYZ" value="0.0"/>
+    <xacro:property name="base_IZZ" value="2.03"/>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xacro:property name="distance_from_ground" value="0.6" />
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xacro:include filename="$(find laelaps_description)/urdf/leg.urdf.xacro" />
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xacro:macro name="laelaps_robot">
+
+        <link name="initial_link"/>
+        <joint name="floating_base" type="fixed">
+            <parent link="initial_link"/>
+            <child link="body"/>
+        </joint>
+
+        <!-- base -->
+        <link name="body">
+            <collision>
+                <origin xyz="${com_pos} 0 ${distance_from_ground}" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="${body_stl}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="${com_pos_visual} 0 ${distance_from_ground}" rpy="1.57 0 0"/>
+                <geometry>
+                    <mesh filename="${body_dae}"/>
+                </geometry>
+            </visual>
+            <inertial>
+                <origin xyz="${com_pos} 0 ${distance_from_ground}" rpy="0 0 0"/>
+                <mass value="${base_mass}"/>
+                <inertia ixx="${base_IXX}" ixy="${base_IXY}" ixz="${base_IXZ}" iyy="${base_IYY}" iyz="${base_IYZ}" izz="${base_IZZ}" />
+            </inertial>
+        </link>
+        
+        <!-- include all four legs -->
+        <!-- Right Side -->
+        <xacro:leg distance_from_ground="${distance_from_ground}" prefix1="R" prefix2="F"/>
+        <xacro:leg distance_from_ground="${distance_from_ground}" prefix1="R" prefix2="H"/>
+        <!-- Left Side -->
+        <xacro:leg distance_from_ground="${distance_from_ground}" prefix1="L" prefix2="F"/>
+        <xacro:leg distance_from_ground="${distance_from_ground}" prefix1="L" prefix2="H"/>
+
+    </xacro:macro>
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/laelaps_robot</robotNamespace>
+        </plugin>
+    </gazebo>
+
+</robot>

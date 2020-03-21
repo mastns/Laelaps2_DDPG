@@ -1,0 +1,42 @@
+laelaps_robot:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 2000
+  
+  # Position Controllers ---------------------------------------
+  RF_knee:
+    type: effort_controllers/JointPositionController
+    joint: RF_joint_knee
+    pid: {p: 700.0, i: 1.0, d: 10.0}
+  RF_hip:
+    type: effort_controllers/JointPositionController
+    joint: RF_joint_hip
+    pid: {p: 700.0, i: 1.0, d: 10.0}
+  # --
+  RH_knee:
+    type: effort_controllers/JointPositionController
+    joint: RH_joint_knee
+    pid: {p: 700.0, i: 1.0, d: 10.0}
+  RH_hip:
+    type: effort_controllers/JointPositionController
+    joint: RH_joint_hip
+    pid: {p: 700.0, i: 1.0, d: 10.0}
+  # --
+  LF_knee:
+    type: effort_controllers/JointPositionController
+    joint: LF_joint_knee
+    pid: {p: 700.0, i: 1.0, d: 10.0}
+  LF_hip:
+    type: effort_controllers/JointPositionController
+    joint: LF_joint_hip
+    pid: {p: 700.0, i: 1.0, d: 10.0}
+  # --
+  LH_knee:
+    type: effort_controllers/JointPositionController
+    joint: LH_joint_knee
+    pid: {p: 700.0, i: 1.0, d: 10.0}
+  LH_hip:
+    type: effort_controllers/JointPositionController
+    joint: LH_joint_hip
+    pid: {p: 700.0, i: 1.0, d: 10.0}

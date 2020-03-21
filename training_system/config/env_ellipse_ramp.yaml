@@ -1,0 +1,5 @@
+# Environment Parameters
+laelaps_model_number: 4
+ramp_available: True
+ramp_model_number: 2
+env_goal : 3.2 

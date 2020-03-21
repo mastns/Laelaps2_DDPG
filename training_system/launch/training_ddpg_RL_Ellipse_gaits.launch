@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <rosparam command="load" file="$(find training_system)/config/ddpg_ellipse.yaml" />
+    <!-- Launch the training system -->
+    <node pkg="training_system" name="ddpg_laelaps_RL_ellipse" type="ddpg_laelaps_RL_ellipse_gaits.py" output="screen"/>
+</launch>

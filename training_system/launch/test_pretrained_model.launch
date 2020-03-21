@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+    <rosparam command="load" file="$(find training_system)/config/ddpg_ellipse.yaml" />
+    <node pkg="training_system" name="test_model" type="run_pretrained_model.py" output="screen"/>
+</launch>

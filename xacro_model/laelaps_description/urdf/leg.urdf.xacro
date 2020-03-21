@@ -1,0 +1,546 @@
+<?xml version="1.1"?>
+<!-- This xacro file describes the robotic legs of the laelaps_robot -->
+<robot name="laelaps_robot" 
+    xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:property name="femur_length" value="0.25"/>
+    <xacro:property name="tibia_length" value="0.3"/>
+    <xacro:property name="arm_mass" value="0.16"/>
+    <!-- Joint A -->
+    <xacro:property name= "joint_A_lower_limit" value="-1.25"/>
+    <xacro:property name= "joint_A_upper_limit" value="1.25"/>
+    <!-- Joint B -->
+    <xacro:property name= "joint_B_lower_limit" value="-1.25"/>
+    <xacro:property name= "joint_B_upper_limit" value="1.25"/>
+    <!-- Joint C -->
+    <xacro:property name="joint_C_lower_limit" value="0.0"/>
+    <xacro:property name="joint_C_upper_limit" value="1.57"/>
+    <!-- Joint D -->
+    <xacro:property name= "joint_D_lower_limit" value="-1.25"/>
+    <xacro:property name= "joint_D_upper_limit" value="1.25"/>
+    <!-- Joint G -->
+    <xacro:property name="joint_G_lower_limit" value="-0.05"/>
+    <xacro:property name="joint_G_upper_limit" value="0"/>
+    <!-- xacro macro for building each leg -->
+    <!-- Leg position -->
+    <xacro:property name="leg_X" value="0"/>
+    <xacro:property name="leg_Y1" value="0"/>
+    <xacro:property name="leg_Y2" value="0"/>
+    <xacro:property name="leg_Z" value="0"/>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- Files -->
+    <xacro:property name="arm_stl" value="package://laelaps_description/meshes/transmission_arm.STL"/>
+    <xacro:property name="arm_dae_left" value="package://laelaps_description/meshes/transmission_arm.dae"/>
+    <xacro:property name="arm_dae_right" value="package://laelaps_description/meshes/transmission_arm_right.dae"/>
+    <xacro:property name="femur_stl" value="package://laelaps_description/meshes/femur.STL"/>
+    <xacro:property name="femur_dae" value="package://laelaps_description/meshes/femur.dae"/>
+    <xacro:property name="tibia_stl" value="package://laelaps_description/meshes/tibia.STL"/>
+    <xacro:property name="tibia_dae" value="package://laelaps_description/meshes/tibia.dae"/>
+    <xacro:property name="foot_stl" value="package://laelaps_description/meshes/foot.STL"/>
+    <xacro:property name="foot_dae" value="package://laelaps_description/meshes/foot.dae"/>
+    <xacro:property name="cable_stl" value="package://laelaps_description/meshes/cable.STL"/>
+    <xacro:property name="cable_dae" value="package://laelaps_description/meshes/cable.dae"/>
+    <xacro:property name="spring_part_a_stl" value="package://laelaps_description/meshes/spring_part_a.STL"/>
+    <xacro:property name="spring_part_a_dae" value="package://laelaps_description/meshes/spring_part_a.dae"/>
+    <xacro:property name="spring_part_b_stl" value="package://laelaps_description/meshes/spring_part_b.STL"/>
+    <xacro:property name="spring_part_b_dae" value="package://laelaps_description/meshes/spring_part_b.dae"/>
+    <!-- xacro macro for building each leg -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- Leg properties Start -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xacro:property name="arm_mass" value="0.243583"/>
+    <xacro:property name="arm_IXX" value="0.000238"/>
+    <xacro:property name="arm_IXY" value="-0.000143"/>
+    <xacro:property name="arm_IXZ" value="0"/>
+    <xacro:property name="arm_IYY" value="0.000238"/>
+    <xacro:property name="arm_IYZ" value="0"/>
+    <xacro:property name="arm_IZZ" value="0.000326"/>
+    <xacro:property name="arm_inertia_origin" value="0.001841 0.001845 0.000604"/>
+    <xacro:property name="arm_inertia_rotation" value="0.0 0.0 0"/>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xacro:property name="femur_mass" value="0.321675"/>
+    <xacro:property name="femur_IXX" value="0.0030216"/>
+    <xacro:property name="femur_IXY" value="0.0"/>
+    <xacro:property name="femur_IXZ" value="0.0"/>
+    <xacro:property name="femur_IYY" value="0.0000606"/>
+    <xacro:property name="femur_IYZ" value="0.0000508"/>
+    <xacro:property name="femur_IZZ" value="0.0030174"/>
+    <xacro:property name="femur_inertia_origin" value="0 -0.1089928 0.0013804"/>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xacro:property name="tibia_mass" value="0.583068"/>
+    <xacro:property name="tibia_IXX" value="0.0069971"/>
+    <xacro:property name="tibia_IXY" value="-0.0025079"/>
+    <xacro:property name="tibia_IXZ" value="-0.0000413"/>
+    <xacro:property name="tibia_IYY" value="0.0011300"/>
+    <xacro:property name="tibia_IYZ" value="0.0001357"/>
+    <xacro:property name="tibia_IZZ" value="0.0080248"/>
+    <xacro:property name="tibia_inertia_origin" value="0.0343235 -0.1131727 -0.0003377"/>
+    <xacro:property name="tibia_inertia_rotation" value="0.0 0.0 0"/>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xacro:property name="foot_mass" value="0.185259"/>
+    <xacro:property name="foot_IXX" value="0.000039"/>
+    <xacro:property name="foot_IXY" value="0.000114"/>
+    <xacro:property name="foot_IXZ" value="0.000014"/>
+    <xacro:property name="foot_IYY" value="0.000946"/>
+    <xacro:property name="foot_IYZ" value="0.000003"/>
+    <xacro:property name="foot_IZZ" value="0.000974"/>
+    <xacro:property name="foot_inertia_origin" value="0 0 0"/>
+    <xacro:property name="footStiffness" value="300000.0"/>
+    <xacro:property name="footDamping" value="1000.0"/>
+    <xacro:property name="footSpinningFriction" value="1.0"/>
+    <xacro:property name="footLateralFriction" value="1.2"/>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xacro:property name="cable_mass" value="0.1"/>
+    <xacro:property name="cable_IXX" value="0.00008"/>
+    <xacro:property name="cable_IXY" value="0"/>
+    <xacro:property name="cable_IXZ" value="0"/>
+    <xacro:property name="cable_IYY" value="0.000002"/>
+    <xacro:property name="cable_IYZ" value="0.0000"/>
+    <xacro:property name="cable_IZZ" value="0.00008"/>
+    <xacro:property name="cable_inertia_origin" value="0 -0.125 0"/>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xacro:property name="springA_mass" value="0.05"/>
+    <xacro:property name="springA_IXX" value="0.000012"/>
+    <xacro:property name="springA_IXY" value="0"/>
+    <xacro:property name="springA_IXZ" value="0"/>
+    <xacro:property name="springA_IYY" value="0.0000606"/>
+    <xacro:property name="springA_IYZ" value="0.0000508"/>
+    <xacro:property name="springA_IZZ" value="0.0030174"/>
+    <xacro:property name="springA_inertia_origin" value="0 0 0"/>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xacro:property name="springB_mass" value="0.05"/>
+    <xacro:property name="springB_IXX" value="0.000012"/>
+    <xacro:property name="springB_IXY" value="0"/>
+    <xacro:property name="springB_IXZ" value="0"/>
+    <xacro:property name="springB_IYY" value="0.000001"/>
+    <xacro:property name="springB_IYZ" value="0"/>
+    <xacro:property name="springB_IZZ" value="0.000012"/>
+    <xacro:property name="springB_inertia_origin" value="0 0 0"/>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xacro:property name="Kspring" value="26480"/>
+    <xacro:property name="Bspring" value="0.1"/>
+    <xacro:property name="hip_to_hip" value="0.6"/>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xacro:property name="leg_X_pos" value="0.28"/>
+    <xacro:property name="leg_X_pos_minus" value="-0.3"/>
+    <xacro:property name="leg_Y1_pos" value="0.2"/>
+    <xacro:property name="leg_Y1_pos_minus" value="-0.2"/>
+    <xacro:property name="leg_Y2_pos_minus" value="-0.216"/>
+    <xacro:property name="leg_Y2_pos_plus" value="0.184"/>
+    <xacro:property name="leg_Z_pos" value="0.0"/>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xacro:property name="hip_effort" value="50"/>
+    <xacro:property name="knee_effort" value="50"/>
+    <xacro:property name="hip_velocity" value="6"/>
+    <xacro:property name="knee_velocity" value="8"/>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!-- Leg properties End -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <xacro:macro name="leg" params="distance_from_ground prefix1 prefix2">
+        <!-- Set up the the lever position angle and the actuator position for each leg individually -->
+        <xacro:if value="${prefix1 == 'L' and prefix2 == 'H'}">
+            <xacro:property name="leg_X" value="${leg_X_pos}"/>
+            <xacro:property name="leg_Y1" value="${leg_Y1_pos_minus}"/>
+            <xacro:property name="leg_Y2" value="${leg_Y2_pos_minus}"/>
+            <xacro:property name="leg_Z" value="${leg_Z_pos}"/>
+            <xacro:property name="arm_dae" value="${arm_dae_left}"/>
+        </xacro:if>
+        <xacro:if value="${prefix1 == 'R' and prefix2 == 'H'}">
+            <xacro:property name="leg_X" value="${leg_X_pos}"/>
+            <xacro:property name="leg_Y1" value="${leg_Y1_pos}"/>
+            <xacro:property name="leg_Y2" value="${leg_Y2_pos_plus}"/>
+            <xacro:property name="leg_Z" value="${leg_Z_pos}"/>
+            <xacro:property name="arm_dae" value="${arm_dae_right}"/>
+        </xacro:if>
+        <xacro:if value="${prefix1 == 'L' and prefix2 == 'F'}">
+            <xacro:property name="leg_X" value="${leg_X_pos_minus}"/>
+            <xacro:property name="leg_Y1" value="${leg_Y1_pos_minus}"/>
+            <xacro:property name="leg_Y2" value="${leg_Y2_pos_minus}"/>
+            <xacro:property name="leg_Z" value="${leg_Z_pos}"/>
+            <xacro:property name="arm_dae" value="${arm_dae_left}"/>
+        </xacro:if>
+        <xacro:if value="${prefix1 == 'R' and prefix2 == 'F'}">
+            <xacro:property name="leg_X" value="${leg_X_pos_minus}"/>
+            <xacro:property name="leg_Y1" value="${leg_Y1_pos}"/>
+            <xacro:property name="leg_Y2" value="${leg_Y2_pos_plus}"/>
+            <xacro:property name="leg_Z" value="${leg_Z_pos}"/>
+            <xacro:property name="arm_dae" value="${arm_dae_right}"/>
+        </xacro:if>
+        <!-- arm -->
+        <!-- arm -->
+        <!-- arm -->
+        <link name="${prefix1}${prefix2}_arm">
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="${arm_stl}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="${arm_dae}"/>
+                </geometry>
+            </visual>
+            <inertial>
+                <origin xyz="${arm_inertia_origin}" rpy="${arm_inertia_rotation}"/>
+                <mass value="${arm_mass}"/>
+                <inertia ixx="${arm_IXX}" ixy="${arm_IXY}" ixz="${arm_IXZ}" iyy="${arm_IYY}" iyz="${arm_IXZ}" izz="${arm_IZZ}"/>
+            </inertial>
+        </link>
+        <!-- upper leg -->
+        <!-- upper leg -->
+        <!-- upper leg -->
+        <link name="${prefix1}${prefix2}_femur">
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="${femur_stl}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="${femur_dae}"/>
+                </geometry>
+            </visual>
+            <inertial>
+                <origin xyz="${femur_inertia_origin}" rpy="0 0 0"/>
+                <mass value="${femur_mass}"/>
+                <inertia ixx="${femur_IXX}" ixy="${femur_IXY}" ixz="${femur_IXZ}" iyy="${femur_IYY}" iyz="${femur_IYZ}" izz="${femur_IZZ}"/>
+            </inertial>
+        </link>
+        <!-- lower leg -->
+        <!-- lower leg -->
+        <!-- lower leg -->
+        <link name="${prefix1}${prefix2}_tibia">
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="${tibia_stl}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="${tibia_dae}"/>
+                </geometry>
+            </visual>
+            <inertial>
+                <origin xyz="${tibia_inertia_origin}" rpy="${tibia_inertia_rotation}"/>
+                <mass value="${tibia_mass}"/>
+                <inertia ixx="${tibia_IXX}" ixy="${tibia_IXY}" ixz="${tibia_IXZ}" iyy="${tibia_IYY}" iyz="${tibia_IYZ}" izz="${tibia_IZZ}"/>
+            </inertial>
+        </link>
+        <!-- foot -->
+        <!-- foot -->
+        <!-- foot -->
+        <link name="${prefix1}${prefix2}_foot">
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="${foot_stl}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="${foot_dae}"/>
+                </geometry>
+            </visual>
+            <inertial>
+                <origin xyz="${foot_inertia_origin}" rpy="0 0 0"/>
+                <mass value="${foot_mass}"/>
+                <inertia ixx="${foot_IXX}" ixy="${foot_IXY}" ixz="${foot_IXZ}" iyy="${foot_IYY}" iyz="${foot_IYZ}" izz="${foot_IZZ}"/>
+            </inertial>
+        </link>
+        <!-- foot -->
+        <!-- foot -->
+        <!-- foot -->
+        <gazebo reference="${prefix1}${prefix2}_foot">
+            <collision>
+                <surface>
+                    <bounce>
+                        <restitution_coefficient>0</restitution_coefficient>
+                        <threshold>1e+06</threshold>
+                    </bounce>
+                    <friction>
+                        <torsional>
+                            <coefficient>${footSpinningFriction}</coefficient>
+                        </torsional>
+                        <ode>
+                            <mu>${footLateralFriction}</mu>
+                            <mu2>${footLateralFriction}</mu2>
+                        </ode>
+                        <bullet>
+                            <rolling_friction>${footSpinningFriction}</rolling_friction>
+                            <friction2>${footLateralFriction}</friction2>
+                        </bullet>
+                    </friction>
+                    <contact>
+                        <ode>
+                            <kp>${footStiffness}</kp>
+                            <kd>${footDamping}</kd>
+                        </ode>
+                        <bullet>
+                            <kp>${footStiffness}</kp>
+                            <kd>${footDamping}</kd>
+                        </bullet>
+                    </contact>
+                </surface>
+            </collision>
+        </gazebo>
+        <!-- cable -->
+        <!-- cable -->
+        <!-- cable -->
+        <link name="${prefix1}${prefix2}_cable">
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="${cable_stl}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="${cable_dae}"/>
+                </geometry>
+            </visual>
+            <inertial>
+                <origin xyz="${cable_inertia_origin}" rpy="0 0 0"/>
+                <mass value="${cable_mass}"/>
+                <inertia ixx="${cable_IXX}" ixy="${cable_IXY}" ixz="${cable_IXZ}" iyy="${cable_IYY}" iyz="${cable_IYZ}" izz="${cable_IZZ}"/>
+            </inertial>
+        </link>
+        <!-- spring_part_a -->
+        <!-- spring_part_a -->
+        <!-- spring_part_a -->
+        <link name="${prefix1}${prefix2}_spring_part_a">
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="${spring_part_a_stl}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="${spring_part_a_dae}"/>
+                </geometry>
+            </visual>
+            <inertial>
+                <origin xyz="${springA_inertia_origin}" rpy="0 0 0"/>
+                <mass value="${springA_mass}"/>
+                <inertia ixx="${springA_IXX}" ixy="${springA_IXY}" ixz="${springA_IXZ}" iyy="${springA_IYY}" iyz="${springA_IYZ}" izz="${springA_IZZ}"/>
+            </inertial>
+        </link>
+        <!-- spring_part_b -->
+        <!-- spring_part_b -->
+        <!-- spring_part_b -->
+        <link name="${prefix1}${prefix2}_spring_part_b">
+            <collision>
+                <origin xyz="0 -0.03 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="${spring_part_b_stl}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="0 -0.03 0" rpy="0 0 0"/>
+                <geometry>
+                    <mesh filename="${spring_part_b_stl}"/>
+                </geometry>
+            </visual>
+            <inertial>
+                <origin xyz="${springB_inertia_origin}" rpy="0 0 0"/>
+                <mass value="${springB_mass}"/>
+                <inertia ixx="${springB_IXX}" ixy="${springB_IXY}" ixz="${springB_IXZ}" iyy="${springB_IYY}" iyz="${springB_IYZ}" izz="${springB_IZZ}"/>
+            </inertial>
+        </link>
+        <!-- joint A -->
+        <!-- joint A -->
+        <!-- joint A -->
+        <joint name="${prefix1}${prefix2}_joint_knee" type="revolute">
+            <origin xyz="${leg_X} ${leg_Y1} ${distance_from_ground}" rpy="1.57 0 0"/>
+            <parent link="body"/>
+            <child link="${prefix1}${prefix2}_arm"/>
+            <axis xyz="0 0 1"/>
+            <dynamics damping="0.0"/>
+            <limit effort="${knee_effort}" velocity="${knee_velocity}" lower="${joint_A_lower_limit}" upper="${joint_A_upper_limit}"/>
+        </joint>
+        <!-- joint B -->
+        <!-- joint B -->
+        <!-- joint B -->
+        <joint name="${prefix1}${prefix2}_joint_hip" type="revolute">
+            <origin xyz="${leg_X} ${leg_Y2} ${distance_from_ground}" rpy="1.57 0 0"/>
+            <parent link="body"/>
+            <child link="${prefix1}${prefix2}_femur"/>
+            <axis xyz="0 0 1"/>
+            <dynamics damping="0.0"/>
+            <limit effort="${hip_effort}" velocity="${hip_velocity}" lower="${joint_B_lower_limit}" upper="${joint_B_upper_limit}"/>
+        </joint>
+        <!-- joint C -->
+        <!-- joint C -->
+        <!-- joint C -->
+        <joint name="${prefix1}${prefix2}_joint_C" type="revolute">
+            <origin xyz="0 -${femur_length} 0" rpy="0 0 0"/>
+            <parent link="${prefix1}${prefix2}_femur"/>
+            <child link="${prefix1}${prefix2}_tibia"/>
+            <axis xyz="0 0 1"/>
+            <dynamics damping="0.0"/>
+            <limit effort="100" velocity="100" lower="${joint_C_lower_limit}" upper="${joint_C_upper_limit}"/>
+        </joint>
+        <!-- joint D -->
+        <!-- joint D -->
+        <!-- joint D -->
+        <joint name="${prefix1}${prefix2}_joint_D" type="revolute">
+            <origin xyz="0.09958 -${tibia_length} 0" rpy="0 0 0.317475"/>
+            <parent link="${prefix1}${prefix2}_tibia"/>
+            <child link="${prefix1}${prefix2}_foot"/>
+            <axis xyz="0 0 1"/>
+            <dynamics damping="0.0"/>
+            <limit effort="100" velocity="100" lower="${joint_D_lower_limit}" upper="${joint_D_upper_limit}"/>
+        </joint>
+        <!-- joint E -->
+        <!-- joint E -->
+        <!-- joint E -->
+        <joint name="${prefix1}${prefix2}_joint_E" type="continuous">
+            <origin xyz="0.03536 -0.03536 0.0246" rpy="0 0 0"/>
+            <parent link="${prefix1}${prefix2}_arm"/>
+            <child link="${prefix1}${prefix2}_cable"/>
+            <axis xyz="0 0 1"/>
+            <dynamics damping="0.0"/>
+            <limit effort="100" velocity="100"/>
+        </joint>
+        <!-- joint F -->
+        <!-- joint F -->
+        <!-- joint F -->
+        <joint name="${prefix1}${prefix2}_joint_F" type="continuous">
+            <origin xyz="0.0514 -0.06 0.0089" rpy="0 0 0.608596"/>
+            <parent link="${prefix1}${prefix2}_tibia"/>
+            <child link="${prefix1}${prefix2}_spring_part_a"/>
+            <axis xyz="0 0 1"/>
+            <dynamics damping="0.0"/>
+            <limit effort="100" velocity="100"/>
+        </joint>
+        <!-- joint G -->
+        <!-- joint G -->
+        <!-- joint G -->
+        <joint name="${prefix1}${prefix2}_joint_G" type="prismatic">
+            <origin xyz="-0 -0.2 0" rpy="0 0 0"/>
+            <parent link="${prefix1}${prefix2}_spring_part_a"/>
+            <child link="${prefix1}${prefix2}_spring_part_b"/>
+            <axis xyz="0 1 0"></axis>
+            <dynamics damping="0.0"/>
+            <limit effort="0" velocity="0" lower="${joint_G_lower_limit}" upper="${joint_G_upper_limit}"/>
+        </joint>
+        <!-- joint G SDF -->
+        <!-- joint G SDF -->
+        <!-- joint G SDF -->
+        <gazebo>
+            <joint name='${prefix1}${prefix2}_joint_G_SDF' type='prismatic'>
+                <parent>${prefix1}${prefix2}_spring_part_a</parent>
+                <child>${prefix1}${prefix2}_spring_part_b</child>
+                <pose frame=''>0 0 0 0 -0 0</pose>
+                <axis>
+                    <xyz>-0.571716 0.000653 0.820451</xyz>
+                    <use_parent_model_frame>1</use_parent_model_frame>
+                    <limit>
+                        <lower>-0.05</lower>
+                        <upper>0</upper>
+                        <effort>0</effort>
+                        <velocity>0</velocity>
+                    </limit>
+                    <dynamics>
+                        <spring_reference>0</spring_reference>
+                        <spring_stiffness>${Kspring}</spring_stiffness>
+                        <damping>${Bspring}</damping>
+                        <friction>0</friction>
+                    </dynamics>
+                </axis>
+            </joint>
+        </gazebo>
+        <!-- Gazebo Joint GA1  -->
+        <!-- Gazebo Joint GA1  -->
+        <!-- Gazebo Joint GA1  -->
+        <gazebo>
+            <joint type="revolute" name="${prefix1}${prefix2}_joint_GA1">
+                <pose>0 -0.25 0 0 0 0</pose>
+                <child>${prefix1}${prefix2}_cable</child>
+                <parent>${prefix1}${prefix2}_tibia</parent>
+                <axis>
+                    <xyz>0 -1 0</xyz>
+                </axis>
+                <physics>
+                    <ode>
+                        <erp>0.5</erp>
+                        <!-- <cfm>0.1</cfm> -->
+                    </ode>
+                </physics>
+            </joint>
+        </gazebo>
+        <!-- Gazebo Joint GA2  -->
+        <!-- Gazebo Joint GA2  -->
+        <!-- Gazebo Joint GA2  -->
+        <gazebo>
+            <joint type="revolute" name="${prefix1}${prefix2}_joint_GA2">
+                <pose>0 -0.025 0 0 0 0</pose>
+                <child>${prefix1}${prefix2}_spring_part_b</child>
+                <parent>${prefix1}${prefix2}_foot</parent>
+                <axis>
+                    <xyz>0 -1 0</xyz>
+                </axis>
+            </joint>
+        </gazebo>
+        <!-- Gazebo sensor A -->
+        <!-- Gazebo sensor A -->
+        <!-- Gazebo sensor A -->
+        <gazebo reference="${prefix1}${prefix2}_joint_knee">
+            <sensor name="${prefix1}${prefix2}_force_torque" type="force_torque">
+                <always_on>true</always_on>
+                <update_rate>1000</update_rate>
+            </sensor>
+        </gazebo>
+        <!-- Gazebo sensor B -->
+        <!-- Gazebo sensor B -->
+        <!-- Gazebo sensor B -->
+        <gazebo reference="${prefix1}${prefix2}_joint_hip">
+            <sensor name="${prefix1}${prefix2}_force_torque" type="force_torque">
+                <always_on>true</always_on>
+                <update_rate>1000</update_rate>
+            </sensor>
+        </gazebo>
+        <!-- Gazebo foot  -->
+        <!-- Gazebo foot  -->
+        <!-- Gazebo foot  -->
+        <!-- <gazebo reference="${prefix1}${prefix2}_foot">
+            <kp>100000</kp>
+            <mu1>10</mu1>
+            <mu2>10</mu2>
+        </gazebo> -->
+        <!-- Gazebo Joint TRAN1  -->
+        <!-- Gazebo Joint TRAN1  -->
+        <!-- Gazebo Joint TRAN1  -->
+        <transmission name="${prefix1}${prefix2}_tran1">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix1}${prefix2}_joint_knee">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix1}${prefix2}_motor1">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+        <!-- Gazebo Joint TRAN2  -->
+        <!-- Gazebo Joint TRAN2  -->
+        <!-- Gazebo Joint TRAN2  -->
+        <transmission name="${prefix1}${prefix2}_tran2">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix1}${prefix2}_joint_hip">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix1}${prefix2}_motor2">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+</robot>

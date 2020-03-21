@@ -1,0 +1,7 @@
+# Environment Parameters
+laelaps_model_number: 1
+ramp_available: False
+ramp_model_number: []
+env_goal : 6
+
+

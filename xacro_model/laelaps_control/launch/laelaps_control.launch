@@ -1,0 +1,26 @@
+<launch>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find laelaps_control)/config/laelaps_control.yaml" command="load"/>
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/laelaps_robot" args="joint_state_controller
+					  RF_knee
+					  RF_hip
+            RH_knee
+					  RH_hip
+            LF_knee
+					  LF_hip
+            LH_knee
+					  LH_hip
+  "/>
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+    <remap from="/joint_states" to="/laelaps_robot/joint_states" />
+  </node>
+
+  <!-- Run a C++ inverse kinematics toe commands requires ellipse trajectory center-->
+  <node name="toe4_ellipse_publisher" pkg="laelaps_control" type="toe4_ellipse_publisher" respawn="false" output="screen"/>
+
+</launch>

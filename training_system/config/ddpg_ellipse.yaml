@@ -1,0 +1,25 @@
+# DDPG Parameters
+
+
+gamma : 0.99
+batch_size : 128
+learning_rate : 0.0001 # for both actor and critic =1e-4 
+replay_size : 10000  # replay buffer size 
+replay_initial : 300
+
+validation_steps : 500 # after how many steps you want to evaluate your training
+validation_tests: 2 # how many times per validation_steps you want to validation
+rewards_steps_count: 1 #n-steps of bellman equation
+
+hidden_layer1_actor : 500
+hidden_layer2_actor : 400
+
+hidden_layer1_critic : 500
+hidden_layer2_critic : 400
+
+# Orstein-Uhlenbeck exploration process
+ou_mu: 0.0
+ou_theta: 0.15
+ou_sigma: 0.2
+ou_epsilon: 1.0
+
