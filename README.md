@@ -52,6 +52,7 @@ II) Launch pre-trained saved model.
 1) Choose a saved model from the runs folder in the training_system package, where you can find your training results. Inside the training_results folder, the saved models are in the Model_best_test_rewards folder.
 
 2) Run the test node.
+
 		roslaunch training_system test_pretrained_model.launch
 
 #### Note
