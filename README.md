@@ -61,3 +61,8 @@ In training and testing change the ERP value to 0.5 in Gazebo at the beginning a
 ### References
 
 [1] Maxim Lapan., Deep Reinforcement Learning Hands-On: Apply modern RL methods, with deep Q-networks, value iteration, policy gradients, TRPO, AlphaGo Zero and more. Packt Publishing, 2018.
+[2] Lillicrap, Timothy & Hunt, Jonathan & Pritzel, Alexander & Heess, Nicolas & Erez, Tom & Tassa, Yuval & Silver, David & Wierstra,
+Daan, “Continuous control with deep reinforcement learning, CoRR,” arXiv:1509.02971, 2015.
+[3] Silver, David & Lever, Guy & Heess, Nicolas & Degris, Thomas & Wierstra, Daan & Riedmiller, Martin, “Deterministic Policy Gradient
+Algorithms,” 31st Int. Conference on Machine Learning, ICML 2014.
+[4] Sewak, Mohit, “Deep Reinforcement Learning: Frontiers of Artificial Intelligence,” 10.1007/978-981-13-8285-7, 2019.
