@@ -1,12 +1,6 @@
 #!/usr/bin/env python3
 
 # -*- coding: utf-8 -*-
-"""
-Deep Determinitic Policy Gradient (DDPG) Network & Agent based on:
-1) Max Lapan's implementation in the book Deep Reinforcement Learning Hands-On: https://github.com/PacktPublishing/Deep-Reinforcement-Learning-Hands-On
-2) Pytorch 
-3) PTAN (PyTorch AgentNet) package for RL https://github.com/Shmuma/ptan
-"""
 
 import gym
 from gym import spaces
