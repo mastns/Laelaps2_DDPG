@@ -58,6 +58,9 @@ II) Launch pre-trained saved model.
 #### Note
 In training and testing change the ERP value to 0.5 in Gazebo at the beginning after launching step II. The ERP value can be found in the left coloumn in World settings then Physics then constraints then ERP.
 
+#### Results
+
+
 ### References
 
 [1] Maxim Lapan., Deep Reinforcement Learning Hands-On: Apply modern RL methods, with deep Q-networks, value iteration, policy gradients, TRPO, AlphaGo Zero and more. Packt Publishing, 2018.
