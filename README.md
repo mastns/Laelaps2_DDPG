@@ -59,9 +59,7 @@ In training and testing change the ERP value to 0.5 in Gazebo at the beginning a
 
 #### Results
 
-|||
-| ------------- | ------------- |
-| <img src="results/animated_ramp.gif" width="100%"> | <img src="results/upward_reward.svg" width="40%">   |
+<img src="results/animated_ramp.gif" height="220px">  <img src="results/upward_reward.svg" height="200px">   
 
 ### References
 
