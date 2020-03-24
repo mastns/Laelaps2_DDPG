@@ -54,7 +54,7 @@ II) Launch pre-trained saved model.
 
 		roslaunch training_system test_pretrained_model.launch
 
-#### Note
+#### Note 1
 In training and testing change the ERP value to 0.5 in Gazebo at the beginning after launching step II. The ERP value can be found in the left coloumn in World settings then Physics then constraints then ERP.
 
 #### Results
@@ -62,6 +62,9 @@ In training and testing change the ERP value to 0.5 in Gazebo at the beginning a
 <p align="center">
   <img src="results/animated_ramp.gif" width="45%" alt="Gazebo sime">
   <img src="results/upward_reward.svg" width="45%" alt="Reward after 30K steps">
+</p>
+<p align="center">
+  <img src="results/downward_reward.svg" width="45%" alt="Reward after 30K steps">
 </p>
 
 
