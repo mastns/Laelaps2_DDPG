@@ -59,19 +59,9 @@ In training and testing change the ERP value to 0.5 in Gazebo at the beginning a
 
 #### Results
 
-
-<table style="width:100%">
-  <tr>
-    <th ><img src="results/animated_ramp.gif" style="width:100%"></th>
-    <th style="width:50%"><img src="results/upward_reward.svg" style="width:100%"></th>
-  </tr>
-  <tr>
-    <td align="center">Gazebo sim</td>
-    <td align="center">Reward after 30K steps</td>
-  </tr>
-</table>
-
-
+|||
+| ------------- | ------------- |
+| <img src="results/animated_ramp.gif" width="100%"> | <img src="results/upward_reward.svg" width="40%">   |
 
 ### References
 
