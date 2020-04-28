@@ -14,8 +14,6 @@ class ControllersConnection():
         self.controllers_list = controllers_list
         self.switch_service_name = '/'+namespace+'/controller_manager/switch_controller'
         self.switch_service = rospy.ServiceProxy(self.switch_service_name, SwitchController)
-        self.load=rospy.ServiceProxy("/minitaur/controller_manager/load_controller",LoadController)
-        self.unload=rospy.ServiceProxy("/minitaur/controller_manager/unload_controller",UnloadController)
         rospy.logwarn("END Init ControllersConnection")
 
     def switch_controllers(self, controllers_on, controllers_off, strictness=1):
